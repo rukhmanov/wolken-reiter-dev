@@ -20,5 +20,13 @@
   max-height: 100%;
   margin-left: 1vw;
   margin-right: 1vw;
+  border-radius: 1.5vw;
   cursor: pointer;
+  &:hover {
+    border-radius: .5vw;
+  }
+}
+
+.transition-border {
+  transition: border-radius .3s ease;
 }
