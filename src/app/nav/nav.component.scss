@@ -30,3 +30,18 @@
 .transition-border {
   transition: border-radius .3s ease;
 }
+
+.sidenav-content {
+  background-image: url(../../assets/images/back-ground/2.jpg);
+  background-size: cover;
+}
+
+.sidenav {
+  background: linear-gradient(to bottom right, #1D1A1A, #51514E);
+  .sidenav-toolbar {
+    color: #666
+  }
+  a {
+    color: white;
+  }
+}
