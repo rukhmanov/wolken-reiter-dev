@@ -9,12 +9,28 @@ import { FormBuilder, FormGroup } from '@angular/forms';
         <mat-icon class="form__close-icon">close</mat-icon>
       </a>
       <mat-form-field color="accent" class="form__field" appearance="outline">
-        <mat-label>Enter login</mat-label>
-        <input formControlName="login" matInput type="text">
+        <mat-label>Enter name</mat-label>
+        <input formControlName="name" matInput type="text">
+      </mat-form-field>
+      <mat-form-field color="accent" class="form__field" appearance="outline">
+        <mat-label>Enter surname</mat-label>
+        <input formControlName="surname" matInput type="text">
+      </mat-form-field>
+      <mat-form-field color="accent" class="form__field" appearance="outline">
+        <mat-label>Enter e-mail</mat-label>
+        <input formControlName="email" matInput type="text">
+      </mat-form-field>
+      <mat-form-field color="accent" class="form__field" appearance="outline">
+        <mat-label>Enter phone</mat-label>
+        <input formControlName="phone" matInput type="text">
       </mat-form-field>
       <mat-form-field color="accent" class="form__field" appearance="outline">
         <mat-label>Enter password</mat-label>
-        <input formControlName="login" matInput type="text">
+        <input formControlName="password" matInput type="text">
+      </mat-form-field>
+      <mat-form-field color="accent" class="form__field" appearance="outline">
+        <mat-label>Repeat password</mat-label>
+        <input formControlName="r_password" matInput type="text">
       </mat-form-field>
       <div class="form__buttons">
         <a class="form__login" mat-icon-button routerLink="/login">Log in</a>
@@ -36,8 +52,12 @@ export class SignupComponent implements OnInit {
 
   setForm(): void {
     this.checkoutForm = this.fb.group({
-      login: '',
+      name: '',
+      surname: '',
+      email: '',
+      phone: '',
       password: '',
+      r_password: '',
     })
   }
 

@@ -9,12 +9,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
         <mat-icon class="form__close-icon">close</mat-icon>
       </button>
       <mat-form-field color="accent" class="form__field" appearance="outline">
-        <mat-label>Enter login</mat-label>
-        <input formControlName="login" matInput type="text">
+        <mat-label>Enter e-mail</mat-label>
+        <input formControlName="email" matInput type="text">
       </mat-form-field>
       <mat-form-field color="accent" class="form__field" appearance="outline">
         <mat-label>Enter password</mat-label>
-        <input formControlName="login" matInput type="text">
+        <input formControlName="password" matInput type="text">
       </mat-form-field>
       <div class="form__buttons">
         <button type="button" color="warn" class="form__login" mat-flat-button>Log in</button>
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
   setForm(): void {
     this.checkoutForm = this.fb.group({
-      login: '',
+      email: '',
       password: '',
     })
   }
