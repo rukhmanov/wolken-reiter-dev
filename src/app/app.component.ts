@@ -10,7 +10,7 @@ import { ContentfulService } from './admin/contentful.service';
 })
 export class AppComponent implements OnInit {
   url = environment.api
-  title = 'wolken-reiter';
+  title = 'Wolken-reiter';
   content!: EntryCollection<unknown>
 
   constructor(private contentful: ContentfulService) {}
@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
     this.contentful.getContent
     .then((content: EntryCollection<unknown>) => {
       this.content = content
-      console.log(content)
     })
   }
 }

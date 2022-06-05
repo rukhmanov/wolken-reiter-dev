@@ -28,8 +28,8 @@
         <mat-icon class="sidenav__login-icon">perm_identity</mat-icon>
       </a>
     </mat-toolbar>
-    <div class="content">
-      <router-outlet></router-outlet>
+    <div class="content" [@routeChangeAnimation]="getRouteAnimationState(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
