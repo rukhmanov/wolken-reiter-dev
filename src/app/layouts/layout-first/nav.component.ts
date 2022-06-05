@@ -3,7 +3,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
-import * as fromUserReducers  from '../../store/reducers/user.reducers';
 import { signInSuccess } from '../../store/actions/user.action';
 import { UserSelectors } from '../../store/selectors';
 
@@ -21,21 +20,12 @@ export class NavComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private store: Store<fromUserReducers.User>) {}
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit() {
-    this.store.pipe(select(UserSelectors.selectUserState))
-    .subscribe((state) => {
-     this.userState = state;
-    })
   }
 
   mainSelected() {
-    this.store.dispatch(signInSuccess({user: {
-      name: 'Aleks',
-      lastName: 'Rukhmanov',
-      email: 'gmx.de',
-    }}))
   }
 
   aboutSelected() {

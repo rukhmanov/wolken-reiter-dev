@@ -12,7 +12,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { StoreModule } from '@ngrx/store';
-import * as fromUserReducers  from './store/reducers/user.reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LoginModule } from './pages/login/login.module';
 import { SignupModule } from './pages/signup/signup.module';
@@ -35,7 +34,6 @@ import { NavComponent } from './layouts/layout-first/nav.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    StoreModule.forRoot({user: fromUserReducers.reducer}),
     StoreDevtoolsModule.instrument({name: 'my NgRx'}),
     LoginModule,
     SignupModule,
