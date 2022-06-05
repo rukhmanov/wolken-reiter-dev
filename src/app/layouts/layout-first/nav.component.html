@@ -12,8 +12,8 @@
       <a mat-list-item href="#">Contacts</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content class="sidenav-content">
-    <mat-toolbar color="primary">
+  <mat-sidenav-content class="sidenav__content">
+    <mat-toolbar class="sidenav__toolbar" color="primary">
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -21,10 +21,15 @@
         (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <div>
+      <div class="sidenav-toolbar__title">
         WOLKEN REITER
       </div>
+      <a routerLink="/login" mat-icon-button class="sidenav__login-link" href="#">
+        <mat-icon class="sidenav__login-icon">perm_identity</mat-icon>
+      </a>
     </mat-toolbar>
-    <!-- Add Content Here -->
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -3,10 +3,9 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
-import * as fromUserReducers  from '../Store/reducers/user.reducers';
-import { signInSuccess } from '../Store/actions/user.action';
-import { AppState } from '../Store/reducers';
-import { UserSelectors } from '../Store/selectors';
+import * as fromUserReducers  from '../../store/reducers/user.reducers';
+import { signInSuccess } from '../../store/actions/user.action';
+import { UserSelectors } from '../../store/selectors';
 
 @Component({
   selector: 'app-nav',

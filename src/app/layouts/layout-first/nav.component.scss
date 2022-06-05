@@ -1,3 +1,11 @@
+::ng-deep router-outlet + * {
+  width: 30vw;
+  height: 35vh;
+  background-color: rgba(50, 50, 50, 0.7);
+  border-radius: 1vw;
+  padding: 1vw;
+}
+
 .sidenav-container {
   height: 100%;
 }
@@ -31,7 +39,7 @@
   transition: border-radius .3s ease;
 }
 
-.sidenav-content {
+.sidenav__content {
   background-image: url(../../assets/images/back-ground/2.jpg);
   background-size: cover;
 }
@@ -45,3 +53,18 @@
     color: white;
   }
 }
+
+.sidenav__toolbar {
+  display: flex;
+  .sidenav-toolbar__title {
+    margin-right: auto;
+  }
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+

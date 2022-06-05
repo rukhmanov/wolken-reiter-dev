@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryCollection } from 'contentful';
-import { IMainPageFields } from 'src/app/contentful-type';
 import { environment } from 'src/environments/environment';
-import { ContentfulService } from './contentful.service';
-import {MatToolbarHarness} from '@angular/material/toolbar/testing';
+import { ContentfulService } from './admin/contentful.service';
 
 @Component({
   selector: 'app-root',

@@ -33,7 +33,7 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.scss",
-              "src/castom-theme.scss"
+              "src/app/custom-themes/castom-theme.scss"
             ],
             "scripts": []
           },
@@ -103,7 +103,7 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.scss",
-              "src/castom-theme.scss"
+              "src/app/custom-themes/castom-theme.scss"
             ],
             "scripts": []
           }
