@@ -17,11 +17,17 @@ import { LoginModule } from './pages/login/login.module';
 import { SignupModule } from './pages/signup/signup.module';
 import { NotFoundModule } from './pages/not-found/not-found.module';
 import { NavComponent } from './layouts/layout-first/nav.component';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { AdminAuthStoreModule } from './store/admin-auth-store/admin-auth-store.module';
+import { appStateReducer, ROOT_FEATURE_NAME } from './store/root-store/store/root.reducer';
+import { BreakpointWidthDirective } from './shared/directives/breakpoint-width.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    BreakpointWidthDirective,
   ],
   imports: [
     MatSliderModule,
@@ -37,7 +43,11 @@ import { NavComponent } from './layouts/layout-first/nav.component';
     StoreDevtoolsModule.instrument({name: 'my NgRx'}),
     LoginModule,
     SignupModule,
-    NotFoundModule
+    NotFoundModule,
+    StoreModule.forRoot({[ROOT_FEATURE_NAME]: appStateReducer}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([]),
+    AdminAuthStoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

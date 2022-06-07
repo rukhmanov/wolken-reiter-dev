@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { animations } from 'src/app/animations/animations';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { select, Store } from '@ngrx/store';
+import { FormBreakPoints } from 'src/app/shared/types/types';
+import { getHandset } from 'src/app/store/root-store/store/root.selectors';
 
 @Component({
   selector: 'app-signup',
@@ -57,26 +59,34 @@ import { animations } from 'src/app/animations/animations';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-
+  hostWidth: FormBreakPoints = FormBreakPoints.SMALL
   checkoutForm!: FormGroup
-  constructor(private fb: FormBuilder) { }
+
+  constructor(private fb: FormBuilder, private store: Store) { }
 
   ngOnInit(): void {
+    this.store.pipe(select(getHandset)).subscribe((isHandset: boolean) => {
+      this.hostWidth = isHandset ? FormBreakPoints.SMALL : FormBreakPoints.LARDGE
+    })
     this.setForm()
   }
 
   setForm(): void {
     this.checkoutForm = this.fb.group({
-      name: '',
-      surname: '',
-      email: '',
-      phone: '',
-      password: '',
-      r_password: '',
+      name: ["", Validators.required],
+      surname: "",
+      email: ["", Validators.required],
+      phone: "",
+      password: ["", Validators.required],
+      r_password: ["", Validators.required],
     })
   }
 
   sendForm() {
     console.log(this.checkoutForm.value)
+  }
+
+  @HostBinding("style.width") get getWidth() {
+    return this.hostWidth
   }
 }

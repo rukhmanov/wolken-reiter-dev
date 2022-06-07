@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { animations } from 'src/app/animations/animations';
+import { Component, ElementRef, HostBinding, OnInit, Renderer2 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { select, Store } from '@ngrx/store';
+import { FormBreakPoints } from 'src/app/shared/types/types';
+import { getHandset } from 'src/app/store/root-store/store/root.selectors';
 
 @Component({
   selector: 'app-login',
@@ -34,20 +36,29 @@ import { animations } from 'src/app/animations/animations';
 })
 export class LoginComponent implements OnInit {
   checkoutForm!: FormGroup
-  constructor(private fb: FormBuilder) { }
+  hostWidth: FormBreakPoints = FormBreakPoints.SMALL
+
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
+    this.store.pipe(select(getHandset)).subscribe((isHandset: boolean) => {
+      this.hostWidth = isHandset ? FormBreakPoints.SMALL : FormBreakPoints.LARDGE
+    })
     this.setForm()
   }
 
   setForm(): void {
     this.checkoutForm = this.fb.group({
-      email: '',
-      password: '',
+      email: ["", Validators.required],
+      password: ["", Validators.required],
     })
   }
 
   sendForm() {
     console.log(this.checkoutForm.value)
+  }
+
+  @HostBinding("style.width") get getWidth() {
+    return this.hostWidth
   }
 }
