@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "contentful-typescript-codegen": "contentful-typescript-codegen --output contentful-type.d.ts"
@@ -26,10 +26,12 @@
     "@ngrx/store": "^13.2.0",
     "@ngrx/store-devtools": "^13.2.0",
     "angular-cli-ghpages": "^1.0.0",
+    "angular2-text-mask": "^9.0.0",
     "contentful": "^9.1.29",
     "contentful-management": "^10.6.0",
     "contentful-typescript-codegen": "^3.2.3",
     "marked": "^4.0.16",
+    "ngx-mat-select-search": "^4.2.0",
     "prettier": "^2.6.2",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",

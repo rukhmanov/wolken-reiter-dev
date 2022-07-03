@@ -13,7 +13,6 @@ import { changeHandset } from './store/root-store/store/root.actions';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  url = environment.api
   title = 'Wolken-reiter';
   content!: EntryCollection<unknown>
 

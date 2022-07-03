@@ -22,6 +22,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { AdminAuthStoreModule } from './store/admin-auth-store/admin-auth-store.module';
 import { appStateReducer, ROOT_FEATURE_NAME } from './store/root-store/store/root.reducer';
 import { BreakpointWidthDirective } from './shared/directives/breakpoint-width.directive';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -48,8 +50,15 @@ import { BreakpointWidthDirective } from './shared/directives/breakpoint-width.d
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
     AdminAuthStoreModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
