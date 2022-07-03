@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://wr-backand.herokuapp.com',
+  baseUrl: 'https://wrback.herokuapp.com',
   contentful: {
     spaceId: '5n5pcoqyb97y',
     accessTokenDelivery: 'A7ohRahkpDP-tjxzqWKG8cACFyZV8oFr_eTLDEwg2jk',
