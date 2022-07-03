@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://nameless-tundra-10822.herokuapp.com',
+  baseUrl: 'https://wr-backand.herokuapp.com',
   contentful: {
     spaceId: '5n5pcoqyb97y',
     accessTokenDelivery: 'A7ohRahkpDP-tjxzqWKG8cACFyZV8oFr_eTLDEwg2jk',
