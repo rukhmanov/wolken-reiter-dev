@@ -201,7 +201,7 @@ export class SignupComponent implements OnInit {
     ))
     .subscribe()
   }
-
+ 
   @HostBinding("style.width") get getWidth() {
     return this.hostWidth
   }
