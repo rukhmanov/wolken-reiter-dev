@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://wrback.herokuapp.com',
+  baseUrl: 'http://localhost:8000',
   contentful: {
     spaceId: '5n5pcoqyb97y',
     accessTokenDelivery: 'A7ohRahkpDP-tjxzqWKG8cACFyZV8oFr_eTLDEwg2jk',

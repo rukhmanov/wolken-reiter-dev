@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 
@@ -26,6 +27,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     TextMaskModule,
     MatSelectModule,
     NgxMatSelectSearchModule
-  ]
+  ],
+  providers: [AuthService]
 })
 export class SignupModule { }

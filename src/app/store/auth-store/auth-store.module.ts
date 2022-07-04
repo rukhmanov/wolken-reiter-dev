@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
-import { adminAuthReducer } from './store/admin-aurh-reducer';
+import { authReducer, AUTH_FEATURE_NAME } from './auth.reducer';
 
 
 
@@ -9,7 +9,7 @@ import { adminAuthReducer } from './store/admin-aurh-reducer';
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forFeature('adminAuth', adminAuthReducer)
+    StoreModule.forFeature(AUTH_FEATURE_NAME, authReducer)
   ]
 })
-export class AdminAuthStoreModule { }
+export class AuthStoreModule { }

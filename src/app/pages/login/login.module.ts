@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { AppRoutingModule } from '../../app-routing.module';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     AppRoutingModule,
     MatIconModule
-  ]
+  ],
+  providers: [AuthService]
 })
 export class LoginModule { }

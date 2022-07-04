@@ -1,5 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { catchError, Observable, Subject, takeUntil } from 'rxjs';
 import { phoneCodes } from 'src/app/phone-codes';
@@ -107,7 +108,6 @@ import { userExistsValidator } from 'src/app/validators/user-exists.validator';
 export class SignupComponent implements OnInit {
   destroy$ = new Subject();
   codeSearchControl: FormControl = new FormControl();
-  // codeSelectControl: FormControl = new FormControl();
   mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
   phoneCodes: PhoneCode[] = phoneCodes
   hostWidth: FormBreakPoints = FormBreakPoints.SMALL
@@ -115,9 +115,8 @@ export class SignupComponent implements OnInit {
   // структуру формы можно посмотреть в SignupData
   checkoutForm!:  any | FormGroup | SignupData
   isButtonPressed: boolean = false;
-  serverError: "signup" | null = null;
 
-  constructor(private fb: FormBuilder, private store: Store, private auth: AuthService) {}
+  constructor(private fb: FormBuilder, private store: Store, private auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.subscribeCodeSearch()
@@ -189,19 +188,14 @@ export class SignupComponent implements OnInit {
 
   sendForm() {
     this.isButtonPressed = true
-    this.serverError = null
+    this.auth.serverError = null
     if(!this.checkoutForm.valid) return
     this.prepareForm()
-    this.auth.createUser(this.checkoutForm.value)
-    .pipe(
-      catchError((err) => {
-      this.serverError = err.error.type
-      return new Observable()
-      }
-    ))
-    .subscribe()
+    this.auth.sendSignupForm(this.checkoutForm.value as SignupData)
+    this.setForm()
+    this.router.navigate(['/'])
   }
- 
+
   @HostBinding("style.width") get getWidth() {
     return this.hostWidth
   }

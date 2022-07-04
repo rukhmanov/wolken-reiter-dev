@@ -19,11 +19,11 @@ import { NotFoundModule } from './pages/not-found/not-found.module';
 import { NavComponent } from './layouts/layout-first/nav.component';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { AdminAuthStoreModule } from './store/admin-auth-store/admin-auth-store.module';
 import { appStateReducer, ROOT_FEATURE_NAME } from './store/root-store/store/root.reducer';
 import { BreakpointWidthDirective } from './shared/directives/breakpoint-width.directive';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { AuthStoreModule } from './store/auth-store/auth-store.module';
 
 @NgModule({
   declarations: [
@@ -49,8 +49,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     StoreModule.forRoot({[ROOT_FEATURE_NAME]: appStateReducer}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
-    AdminAuthStoreModule,
     HttpClientModule,
+    AuthStoreModule
   ],
   providers: [
     {
