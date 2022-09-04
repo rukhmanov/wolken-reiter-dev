@@ -7,6 +7,9 @@ import { AnimationRoutingNames, routeChangeAnimation } from 'src/app/animations/
 import { select, Store } from '@ngrx/store';
 import { getAuthData } from 'src/app/store/auth-store/auth.selectors';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-nav',
@@ -15,16 +18,23 @@ import { AuthService } from 'src/app/services/auth.service';
   animations: [routeChangeAnimation],
 })
 export class NavComponent implements OnInit {
+  verified: boolean = false
   authorized: boolean = false
-  name!: string;
-  surname!: string;
+  name!: string | undefined;
+  email!: string | undefined;
+  surname!: string | undefined;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private store: Store, public authService: AuthService) {}
+  constructor(
+    private dialog: MatDialog,
+    private api: ApiService,
+    private breakpointObserver: BreakpointObserver,
+    private store: Store,
+    public authService: AuthService) {}
 
   ngOnInit(): void {
     this.subscribeUserData();
@@ -32,20 +42,24 @@ export class NavComponent implements OnInit {
 
   subscribeUserData(): void {
     this.store.pipe(select(getAuthData)).subscribe(data => {
-      this.name = data.name
-      this.surname = data.surname
-      this.authorized = !!data.token
+      this.authorized = !!data?.accessToken?.accessToken
+      const user = data?.userData
+      this.name = user?.name
+      this.email = user?.email
+      this.surname = user?.surname
     })
+  }
+
+  openDialog() {
+    if(!this.email) return
+    let config = this.api.getdialogConfig(`Please check your email: ${this.email}`)
+    this.dialog.open(DialogComponent, config)
   }
 
   mainSelected(): void {
   }
 
   aboutSelected(): void {
-  }
-
-  logout(): void {
-
   }
 
   getRouteAnimationState(outlet: RouterOutlet): AnimationRoutingNames {

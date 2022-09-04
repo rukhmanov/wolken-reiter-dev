@@ -7,3 +7,4 @@ export const getHandset: MemoizedSelector<{}, boolean> = createSelector(
   getRoot,
   (state) => state.isHandset
 )
+export const getVisitorId: MemoizedSelector<{}, string | null>  = createSelector(getRoot, (state) => state.visitorId)

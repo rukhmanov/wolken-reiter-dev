@@ -1,29 +1,49 @@
 import { createReducer, on } from '@ngrx/store';
-import { removeUserData, saveUserData } from './auth.actions';
+import { AccessTokenData } from 'src/app/shared/types/types';
+import { logout, removeToken, removeUserData, saveToken, saveUserData, verifyEmail } from './auth.actions';
 
 export const AUTH_FEATURE_NAME = "auth"
 
-export interface Auth {
+export interface UserData {
   name: string,
   surname: string,
   email: string,
-  token: string
 }
-const userData: Auth = JSON.parse(<string>localStorage.getItem("auth"));
 
-const initialAuthState = {
-  name: "",
-  surname: "",
-  email: "",
-  token: "",
+export interface Auth {
+  userData: null | UserData,
+  accessToken: null | AccessTokenData,
+  verified: boolean,
+}
+
+const initialAuthState: Auth = {
+  userData: null,
+  accessToken: null,
+  verified: false,
 }
 
 export const authReducer = createReducer(initialAuthState,
-  on(saveUserData, (state, { data }) => ({
+  on(saveToken, (state, { accessToken }) => ({
     ...state,
-    ...data
+    accessToken
   })),
-  on(removeUserData, () => ({
+  on(removeToken, (state) => ({
+    ...state,
+    refreshToken: null
+  })),
+  on(saveUserData, (state, { userData }) => ({
+    ...state,
+    userData
+  })),
+  on(removeUserData, (state) => ({
+    ...state,
+    userData: null
+  })),
+  on(verifyEmail, (state, { verified }) => ({
+    ...state,
+    verified: verified
+  })),
+  on(logout, () => ({
     ...initialAuthState,
   }))
 )

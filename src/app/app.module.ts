@@ -24,12 +24,17 @@ import { BreakpointWidthDirective } from './shared/directives/breakpoint-width.d
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { AuthStoreModule } from './store/auth-store/auth-store.module';
+import { VerifyModule } from './pages/verify/verify.module';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogComponent } from './shared/components/dialog/dialog.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     BreakpointWidthDirective,
+    DialogComponent
   ],
   imports: [
     MatSliderModule,
@@ -42,16 +47,19 @@ import { AuthStoreModule } from './store/auth-store/auth-store.module';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    StoreDevtoolsModule.instrument({name: 'my NgRx'}),
     LoginModule,
     SignupModule,
     NotFoundModule,
     StoreModule.forRoot({[ROOT_FEATURE_NAME]: appStateReducer}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({name: 'my NgRx'}),
     EffectsModule.forRoot([]),
     HttpClientModule,
-    AuthStoreModule
+    AuthStoreModule,
+    VerifyModule,
+    MatDialogModule,
   ],
+  entryComponents: [DialogComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

@@ -24,6 +24,10 @@ ul {
   color: white !important;
 }
 
+.c-gold {
+ color: gold
+}
+
 .mt-1 {
   margin-top: 1vw;
 }
@@ -53,4 +57,19 @@ ul {
 
 .ml-2 {
   margin-left: 2vw;
+}
+
+.mat-dialog-container {
+  .text, .actions, .wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .wrap {
+    height: 100%;
+    flex-direction: column;
+  }
+  .text {
+    height: 100%;
+  }
 }

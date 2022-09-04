@@ -1,9 +1,8 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntryCollection } from 'contentful';
-import { map, Observable, shareReplay, Subject, takeUntil } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { map, Subject, takeUntil } from 'rxjs';
 import { ContentfulService } from './admin/contentful.service';
 import { AuthService } from './services/auth.service';
 import { changeHandset } from './store/root-store/store/root.actions';
@@ -17,6 +16,7 @@ export class AppComponent implements OnInit {
   destroy$ = new Subject();
   title = 'Wolken-reiter';
   content!: EntryCollection<unknown>
+  win = <any>window
 
   constructor(private contentful: ContentfulService,
     private breakpointObserver: BreakpointObserver,
@@ -24,9 +24,10 @@ export class AppComponent implements OnInit {
     private auth: AuthService) {}
 
   ngOnInit(): void {
-    this.auth.setUserDataFromStorage()
+    this.auth.refreshTokens().subscribe()
     this.subscribeBreakpointsChange()
-    this.getContentfulContent()
+    this.win.visitorPromise
+    .then((r: any) => this.auth.saveVisitorId(r.visitorId))
   }
 
   getContentfulContent() {

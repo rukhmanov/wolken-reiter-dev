@@ -1,15 +1,17 @@
 import { createReducer, on } from '@ngrx/store'
-import { changeHandset } from './root.actions'
+import { changeHandset, saveVisitorId } from './root.actions'
 
 export const ROOT_FEATURE_NAME = 'root'
 
 
 export interface Appstate {
-  isHandset: boolean
+  isHandset: boolean,
+  visitorId: string | null,
 }
 
 export const initialState: Appstate = {
-  isHandset: false
+  isHandset: false,
+  visitorId: null
 }
 
 export const appStateReducer = createReducer(
@@ -17,5 +19,9 @@ export const appStateReducer = createReducer(
   on(changeHandset, (state, { isHandset }) => ({
     ...state,
     isHandset
-  }))
+  })),
+  on(saveVisitorId, (state, { id }) => ({
+    ...state,
+    visitorId: id
+  })),
   )

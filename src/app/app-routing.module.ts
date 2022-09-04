@@ -8,6 +8,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { VerifyComponent } from './pages/verify/verify.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
     canDeactivate: [MainDeactivateGuard],
     component: SignupComponent,
     data: { animation: AnimationRoutingNames.SIGNUP }
+  },
+  {
+    path: "verify/:token",
+    component: VerifyComponent,
   },
   {
     path: "**",

@@ -1,18 +1,18 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { catchError, Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBreakPoints, LoginData } from 'src/app/shared/types/types';
 import { getHandset } from 'src/app/store/root-store/store/root.selectors';
+import { userNotExistsValidator } from 'src/app/validators/user-not-exists.validator';
 
 @Component({
   selector: 'app-login',
   template: `
-    <form [formGroup]="checkoutForm" class="form" (ngSubmit)="sendForm()">
-      <a class="form__close" mat-icon-button routerLink="/">
-        <mat-icon class="form__close-icon">close</mat-icon>
+    <form [formGroup]="checkoutForm" [ngStyle]="{width: hostWidth}" class="form" (ngSubmit)="sendForm()">
+      <a [ngClass]="{'small-display__close': !isHandset}" class="form__close" mat-icon-button routerLink="/">
+        <mat-icon [ngClass]="{'small-display__close-icon': !isHandset}" class="form__close-icon">close</mat-icon>
       </a>
       <ul class="form__list">
         <li class="form__item">
@@ -23,8 +23,8 @@ import { getHandset } from 'src/app/store/root-store/store/root.selectors';
           <mat-error *ngIf="checkoutForm.get('email')?.hasError('required') && isButtonPressed">
            Email is <strong>required</strong>
           </mat-error>
-          <mat-error *ngIf="(auth.serverError === 'login') && isButtonPressed">
-           The e-mail does <strong>not exist</strong>
+          <mat-error *ngIf="checkoutForm.get('email')?.hasError('emailNotExists')">
+            The e-mail does <strong>not exist</strong>
           </mat-error>
         </li>
         <li class="form__item">
@@ -51,7 +51,7 @@ import { getHandset } from 'src/app/store/root-store/store/root.selectors';
 })
 export class LoginComponent implements OnInit {
   isButtonPressed: boolean = false;
-
+  isHandset: boolean = false;
   // ставим any из-за невозможности типизировать реактивные формы
   // структуру формы можно посмотреть в LoginData
   checkoutForm!:  any | FormGroup | LoginData
@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.pipe(select(getHandset)).subscribe((isHandset: boolean) => {
+      this.isHandset = isHandset
       this.hostWidth = isHandset ? FormBreakPoints.SMALL : FormBreakPoints.LARDGE
     })
     this.setForm()
@@ -68,7 +69,11 @@ export class LoginComponent implements OnInit {
 
   setForm(): void {
     this.checkoutForm = this.fb.group({
-      email: ["", Validators.required],
+      email: ["", {
+        validators: [Validators.required],
+        asyncValidators: userNotExistsValidator(this.auth),
+        updateOn: "blur"
+      }],
       password: ["", Validators.required],
     })
   }
@@ -80,9 +85,5 @@ export class LoginComponent implements OnInit {
     this.auth.sendLoginForm(this.checkoutForm.value as LoginData)
     this.setForm()
     this.router.navigate(['/'])
-  }
-
-  @HostBinding("style.width") get getWidth() {
-    return this.hostWidth
   }
 }

@@ -1,8 +1,8 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { catchError, Observable, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { phoneCodes } from 'src/app/phone-codes';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBreakPoints, PhoneCode, SignupData } from 'src/app/shared/types/types';
@@ -12,9 +12,9 @@ import { userExistsValidator } from 'src/app/validators/user-exists.validator';
 @Component({
   selector: 'app-signup',
   template: `
-    <form [formGroup]="checkoutForm" class="form" (ngSubmit)="sendForm()">
-      <a class="form__close" mat-icon-button routerLink="/">
-        <mat-icon class="form__close-icon">close</mat-icon>
+    <form [formGroup]="checkoutForm" [ngStyle]="{width: hostWidth}" class="form" (ngSubmit)="sendForm()">
+      <a [ngClass]="{'small-display__close': !isHandset}" class="form__close" mat-icon-button routerLink="/">
+        <mat-icon [ngClass]="{'small-display__close-icon': !isHandset}" class="form__close-icon">close</mat-icon>
       </a>
       <ul class="form__list">
         <li class="form__item">
@@ -49,8 +49,14 @@ import { userExistsValidator } from 'src/app/validators/user-exists.validator';
           <mat-error *ngIf="checkoutForm.get('email')?.hasError('required') && isButtonPressed">
             Email is <strong>required</strong>
           </mat-error>
+          <mat-error *ngIf="checkoutForm.get('email')?.hasError('email') && isButtonPressed">
+            You should enter <strong>an email</strong>
+          </mat-error>
+          <mat-error *ngIf="checkoutForm.get('email')?.hasError('minlength') && isButtonPressed">
+             Min length is <strong>4 symbols</strong>
+          </mat-error>
           <mat-error *ngIf="checkoutForm.get('email')?.hasError('emailExists')">
-           The e-mail already <strong>exists</strong>
+            The e-mail already <strong>exists</strong>
           </mat-error>
         </li>
         <li class="form__item" formGroupName="phoneGroup">
@@ -72,7 +78,7 @@ import { userExistsValidator } from 'src/app/validators/user-exists.validator';
           </mat-form-field>
           <mat-form-field color="accent" class="phone" appearance="outline">
             <mat-label>Enter phone</mat-label>
-            <input [textMask]="{mask: mask}" formControlName="phone" matInput type="text">
+            <input [textMask]="{mask: phoneMaskReg}" formControlName="phone" matInput type="text">
           </mat-form-field>
         </li>
         <ng-container formGroupName="passwordGroup">
@@ -83,6 +89,12 @@ import { userExistsValidator } from 'src/app/validators/user-exists.validator';
             </mat-form-field>
             <mat-error  *ngIf="checkoutForm.get('passwordGroup').get('password').hasError('required') && isButtonPressed">
               Password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="checkoutForm.get('passwordGroup').get('password').hasError('minlength') && isButtonPressed">
+             Min length is <strong>8 symbols</strong>
+            </mat-error>
+            <mat-error  *ngIf="checkoutForm.get('passwordGroup').get('password').hasError('pattern') && isButtonPressed">
+              At least one uppercase letter, one lowercase and one of the characters: !@#$%^&*.-
             </mat-error>
           </li>
           <li class="form__item">
@@ -106,9 +118,11 @@ import { userExistsValidator } from 'src/app/validators/user-exists.validator';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
+  isHandset: boolean = false;
   destroy$ = new Subject();
   codeSearchControl: FormControl = new FormControl();
-  mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  phoneMaskReg = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  passwordReg = /(?=.*[0-9])(?=.*[!@#$%^&*.-])(?=.*[a-z])(?=.*[A-Z])/g
   phoneCodes: PhoneCode[] = phoneCodes
   hostWidth: FormBreakPoints = FormBreakPoints.SMALL
   // ставим any из-за невозможности типизировать реативные формы
@@ -153,6 +167,7 @@ export class SignupComponent implements OnInit {
     this.store.pipe(select(getHandset))
     .pipe(takeUntil(this.destroy$))
     .subscribe((isHandset: boolean) => {
+      this.isHandset = isHandset
       this.hostWidth = isHandset ? FormBreakPoints.SMALL : FormBreakPoints.LARDGE
     })
   }
@@ -163,7 +178,7 @@ export class SignupComponent implements OnInit {
       surname: ["",  Validators.maxLength(25)],
       email: ["",
       {
-        validators: Validators.required,
+        validators: [Validators.required, Validators.minLength(4), Validators.email],
         asyncValidators: userExistsValidator(this.auth),
         updateOn: "blur"
       }],
@@ -173,7 +188,9 @@ export class SignupComponent implements OnInit {
         phone: null,
       }),
       passwordGroup: this.fb.group({
-        password: ["", Validators.required],
+        password: ["", {
+          validators: [Validators.required, Validators.minLength(8), Validators.pattern(this.passwordReg)]
+        }],
         r_password: ["", Validators.required],
       }, {validators: passwordMatchValidator()})
     })
@@ -194,9 +211,5 @@ export class SignupComponent implements OnInit {
     this.auth.sendSignupForm(this.checkoutForm.value as SignupData)
     this.setForm()
     this.router.navigate(['/'])
-  }
-
-  @HostBinding("style.width") get getWidth() {
-    return this.hostWidth
   }
 }

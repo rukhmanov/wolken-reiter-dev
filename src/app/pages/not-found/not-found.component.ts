@@ -20,7 +20,7 @@ import { Component, OnInit } from '@angular/core';
     height:100vh;
     top: 0;
     left: 0;
-    font-size: 5em;
+    font-size: 5vw;
     background: linear-gradient(to bottom right, #1D1A1A, #51514E);
   }
 

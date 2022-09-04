@@ -19,11 +19,20 @@ export interface LoginData {
   password: string,
 }
 
+export interface AccessTokenData {
+  expiresAt: Date,
+  accessToken: string
+}
+export interface jwtData {
+  accessTokenData: AccessTokenData
+  refreshToken: string
+}
+
 export interface UserData {
   name: string,
   surname: string,
   email: string,
-  token: string
+  verified: boolean
 }
 
 export interface Token {
@@ -34,8 +43,16 @@ export interface EmailExistsResponse {
   emailExists: boolean,
 }
 
+export interface EmailNotExistsResponse {
+  emailNotExists: boolean,
+}
+
 export interface Email {
   email: string,
+}
+
+export interface UserCreatedResponse {
+  userCreated: boolean,
 }
 
 export enum FormStaus {

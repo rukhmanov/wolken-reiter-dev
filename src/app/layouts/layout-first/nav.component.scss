@@ -57,10 +57,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90%;
+  height: 85%;
 }
 
 .mat-drawer-content {
   overflow: hidden;
 }
 
+.footer {
+  height: 100%;
+  padding: .5vw;
+}
+
+.sidenav__login-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

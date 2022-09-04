@@ -13,4 +13,13 @@
 <body class="mat-typography mat-app-background">
   <app-root></app-root>
 </body>
+<script>
+  // Initialize the agent at application startup.
+  const fpPromise = import('https://openfpcdn.io/fingerprintjs/v3')
+    .then(FingerprintJS => FingerprintJS.load())
+
+  // Get the visitor identifier when you need it.
+  window.visitorPromise = fpPromise
+    .then(fp => fp.get())
+</script>
 </html>

@@ -9,8 +9,9 @@ mat-label {
 .form {
   position: relative;
   display: flex;
-  width: 100%;
-  height: 100%;
+  background-color: rgba(50, 50, 50, 0.7);
+  border-radius: 1vw;
+  padding: 1vw;
   font-size: 1.5vh;
   flex-direction: column;
   justify-content: space-evenly;
@@ -33,6 +34,16 @@ mat-label {
       justify-content: center;
       align-items: center;
     }
+
+    .small-display__close-icon {
+      font-size: 4vw;
+    }
+  }
+  .small-display__close {
+    width: 6vw;
+    height: 6vw;
+    top: -5vw;
+    right: -5vw;
   }
   .form__field {
     width: 100%;

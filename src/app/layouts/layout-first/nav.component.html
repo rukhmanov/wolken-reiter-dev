@@ -24,17 +24,23 @@
       <div class="sidenav-toolbar__title">
         WOLKEN REITER
       </div>
-      <span class="mr-1" *ngIf="name">{{ name }}</span>
-      <span class="mr-1" *ngIf="surname">{{ surname }}</span>
+      <button title="Check your e-mail" (click)="openDialog()" *ngIf="authorized && !verified" class="mr-1" mat-icon-button class="sidenav__login-link">
+        <mat-icon class="sidenav__login-icon c-gold"> mail_outline</mat-icon>
+      </button>
+      <span title="Your name" class="mr-1" *ngIf="name">{{ name }}</span>
+      <span title="Your surname" class="mr-1" *ngIf="surname">{{ surname }}</span>
       <a *ngIf="!authorized" routerLink="/login" mat-icon-button class="sidenav__login-link">
         <mat-icon class="sidenav__login-icon">perm_identity</mat-icon>
       </a>
-      <button (click)="authService.logout()" *ngIf="authorized" mat-icon-button class="sidenav__login-link">
+      <button title="Log out" (click)="authService.logout()" *ngIf="authorized" mat-icon-button class="sidenav__login-link">
         <mat-icon class="sidenav__login-icon">exit_to_app</mat-icon>
       </button>
     </mat-toolbar>
     <div class="content" [@routeChangeAnimation]="getRouteAnimationState(outlet)">
       <router-outlet #outlet="outlet"></router-outlet>
     </div>
+    <footer class="footer">
+      <span>© Wolken Reiter</span>
+    </footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

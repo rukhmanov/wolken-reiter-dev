@@ -1,9 +1,11 @@
 @import '../../shared/styles/login-signup-form.scss';
 
 :host {
-  width: 30vw;
-  height: 35vh;
-  background-color: rgba(50, 50, 50, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95% !important;
+  height: 95%;
   border-radius: 1vw;
   padding: 1vw;
 }
