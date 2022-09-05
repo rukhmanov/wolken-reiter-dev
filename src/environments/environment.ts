@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8000',
+  baseUrl: 'https://glacial-taiga-64403.herokuapp.com',
   contentful: {
     spaceId: '5n5pcoqyb97y',
     accessTokenDelivery: 'A7ohRahkpDP-tjxzqWKG8cACFyZV8oFr_eTLDEwg2jk',
