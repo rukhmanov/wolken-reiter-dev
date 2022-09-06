@@ -40,7 +40,11 @@
       <router-outlet #outlet="outlet"></router-outlet>
     </div>
     <footer class="footer">
-      <span>© Wolken Reiter</span>
+      <span class="footer__copyright">© Wolken Reiter</span>
+      <div *ngIf="!isPermissionConfirmed" class="footer__permission">
+        <span>By staying on the site you confirm permission to use your personal data</span>
+        <button (click)="isPermissionConfirmed = true" color="primary" mat-flat-button>ok</button>
+      </div>
     </footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

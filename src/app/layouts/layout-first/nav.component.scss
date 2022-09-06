@@ -65,12 +65,35 @@
 }
 
 .footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
   height: 100%;
-  padding: .5vw;
 }
 
 .sidenav__login-link {
   display: flex;
+  align-items: center;
+}
+
+.footer__copyright {
+  width: 100%;
+  line-height: 36px;
+}
+
+.footer__permission {
+  display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgba(23, 73, 118, 0.5);
+  border-radius: 1vw;
+  width: 100%;
+  font-size: 1.1vw;
+  margin-right: 5vw;
+  span {
+    margin-right: 1vw;
+  }
+  button {
+    font-size: 1.1vw;
+  }
 }

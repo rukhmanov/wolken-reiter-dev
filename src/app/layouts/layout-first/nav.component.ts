@@ -19,6 +19,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class NavComponent implements OnInit {
   verified: boolean = false
+  isPermissionConfirmed: boolean = false
   authorized: boolean = false
   name!: string | undefined;
   email!: string | undefined;
