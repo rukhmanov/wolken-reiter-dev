@@ -1,0 +1,15 @@
+.card {
+  width: 15vw;
+  height: 22vw;
+  padding: 0.5vw;
+  background-color: rgba(238, 121, 166, 0.144);
+  border-radius: 1vw;
+}
+
+.card__buttons {
+  display: flex;
+  button {
+    margin-right: 0.5vw;
+    background-color: dimgray;
+  }
+}

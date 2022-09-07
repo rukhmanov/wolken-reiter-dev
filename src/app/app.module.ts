@@ -25,8 +25,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { AuthStoreModule } from './store/auth-store/auth-store.module';
 import { VerifyModule } from './pages/verify/verify.module';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './shared/components/dialog/dialog.component';
+import { ProductCardModule } from './shared/components/product-card/product-card/product-card.module';
+import { MainPageModule } from './pages/main-page/main-page.module';
+import { NavPanelModule } from './shared/components/nav-panel/nav-panel.module';
 
 
 @NgModule({
@@ -34,7 +37,7 @@ import { DialogComponent } from './shared/components/dialog/dialog.component';
     AppComponent,
     NavComponent,
     BreakpointWidthDirective,
-    DialogComponent
+    DialogComponent,
   ],
   imports: [
     MatSliderModule,
@@ -48,6 +51,7 @@ import { DialogComponent } from './shared/components/dialog/dialog.component';
     MatIconModule,
     MatListModule,
     LoginModule,
+    MainPageModule,
     SignupModule,
     NotFoundModule,
     StoreModule.forRoot({[ROOT_FEATURE_NAME]: appStateReducer}),
@@ -58,6 +62,8 @@ import { DialogComponent } from './shared/components/dialog/dialog.component';
     AuthStoreModule,
     VerifyModule,
     MatDialogModule,
+    ProductCardModule,
+    NavPanelModule
   ],
   entryComponents: [DialogComponent],
   providers: [

@@ -24,6 +24,7 @@
       <div class="sidenav-toolbar__title">
         WOLKEN REITER
       </div>
+      <app-nav-panel class="sidenav__panel"></app-nav-panel>
       <button title="Check your e-mail" (click)="openDialog()" *ngIf="authorized && !verified" class="mr-1" mat-icon-button class="sidenav__login-link">
         <mat-icon class="sidenav__login-icon c-gold"> mail_outline</mat-icon>
       </button>
@@ -42,7 +43,7 @@
     <footer class="footer">
       <span class="footer__copyright">© Wolken Reiter</span>
       <div *ngIf="!isPermissionConfirmed" class="footer__permission">
-        <span>By staying on the site you confirm permission to use your personal data</span> 
+        <span>By staying on the site you confirm permission to use your personal data</span>
         <button (click)="isPermissionConfirmed = true" color="primary" mat-flat-button>ok</button>
       </div>
     </footer>

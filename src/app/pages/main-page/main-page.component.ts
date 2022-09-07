@@ -4,6 +4,7 @@ import { animations } from 'src/app/animations/animations';
 @Component({
   selector: 'app-main-page',
   template: `
+  <app-product-card></app-product-card>
   `,
   styleUrls: ['./main-page.component.scss'],
 })
